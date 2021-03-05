@@ -3,10 +3,12 @@ package fr.baobab.planeteapp.model;
 public class Planete {
     private String nom;
     private int distance;
+    private int idImage;
 
-    public Planete(String nom, int distance) {
+    public Planete(String nom, int distance, int idImage) {
         this.nom = nom;
         this.distance = distance;
+        this.idImage = idImage;
     }
 
     public String getNom() {
@@ -23,6 +25,15 @@ public class Planete {
 
     public void setDistance(int distance) {
         this.distance = distance;
+    }
+
+
+    public int getIdImage() {
+        return idImage;
+    }
+
+    public void setIdImage(int idImage) {
+        this.idImage = idImage;
     }
 
     @Override

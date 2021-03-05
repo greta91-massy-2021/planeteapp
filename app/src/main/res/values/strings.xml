@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Planete App</string>
+    <string name="empty_list">La liste est vide</string>
 </resources>
