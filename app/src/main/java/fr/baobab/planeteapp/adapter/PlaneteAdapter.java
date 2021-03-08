@@ -21,6 +21,8 @@ import fr.baobab.planeteapp.view.PlaneteView;
 public class PlaneteAdapter extends RecyclerView.Adapter<PlaneteView> {
     private List<Planete> list;
     private int clickedPosition = RecyclerView.NO_POSITION;
+    private View.OnCreateContextMenuListener menuListener;
+
     public PlaneteAdapter(@NonNull List<Planete> planetes) {
         super();
         list = planetes;
@@ -51,6 +53,7 @@ public class PlaneteAdapter extends RecyclerView.Adapter<PlaneteView> {
         }
         holder.itemView.setBackgroundColor(color);*/
         holder.itemView.setBackgroundColor(getClickedPosition() == position ? Color.LTGRAY : Color.TRANSPARENT);
+        holder.itemView.setOnCreateContextMenuListener(menuListener);
     }
 
     @Override
@@ -67,5 +70,14 @@ public class PlaneteAdapter extends RecyclerView.Adapter<PlaneteView> {
         this.clickedPosition = clickedPosition;
         notifyItemChanged(clickedPosition);
     }
+
+    public View.OnCreateContextMenuListener getMenuListener() {
+        return menuListener;
+    }
+
+    public void setMenuListener(View.OnCreateContextMenuListener menuListener) {
+        this.menuListener = menuListener;
+    }
+
 
 }

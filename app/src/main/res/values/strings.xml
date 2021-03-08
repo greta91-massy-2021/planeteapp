@@ -2,4 +2,6 @@
     <string name="app_name">Planete App</string>
     <string name="empty_list">La liste est vide</string>
     <string name="menu_create_planete_label">Créer planete</string>
+    <string name="menu_edit_planete_label">Modifier</string>
+    <string name="menu_delete_planete_label">Supprimer</string>
 </resources>
