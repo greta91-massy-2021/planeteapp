@@ -86,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.menu_create_planete:
                 //afficher le formulaire de création de planete
                 Log.i(TAG, "dans menu_create_planete");
+                //
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -100,6 +101,18 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
-        return super.onContextItemSelected(item);
+        int itemId = item.getItemId();
+        switch (itemId){
+            case R.id.menu_edit_planete:
+                //afficher le formulaire de modification de planete
+                Log.i(TAG, "dans menu_edit_planete");
+                return false;
+            case R.id.menu_delete_planete:
+                //demander la confirmation avant de supprimer
+                Log.i(TAG, "dans menu_delete_planete");
+                return false;
+            default:
+                return super.onContextItemSelected(item);
+        }
     }
 }
