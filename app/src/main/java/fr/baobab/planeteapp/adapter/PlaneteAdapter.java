@@ -7,13 +7,14 @@ import android.widget.ArrayAdapter;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
 import fr.baobab.planeteapp.model.Planete;
 import fr.baobab.planeteapp.view.PlaneteView;
 
-public class PlaneteAdapter extends ArrayAdapter<Planete> {
+public class PlaneteAdapter extends RecyclerView.Adapter<PlaneteView> {
     private List<Planete> list;
     public PlaneteAdapter(@NonNull Context context, @NonNull List<Planete> planetes) {
         super(context, 0, planetes);

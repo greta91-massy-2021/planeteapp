@@ -1,6 +1,7 @@
 package fr.baobab.planeteapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -45,7 +46,8 @@ public class MainActivity extends AppCompatActivity {
         //créer un adaptateur
         /*ArrayAdapter<Planete> adapter =
                 new ArrayAdapter<>(this, R.layout.item, R.id.item_nom, list);*/
-        PlaneteAdapter adapter = new PlaneteAdapter(this, list);
+        RecyclerView rv = (RecyclerView)findViewById(R.id.list);
+        PlaneteAdapter adapter = new PlaneteAdapter(list);
         ListView lv = (ListView)findViewById(android.R.id.list);
         lv.setAdapter(adapter);
     }
