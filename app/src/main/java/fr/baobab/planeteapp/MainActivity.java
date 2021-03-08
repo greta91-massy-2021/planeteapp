@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,6 +27,7 @@ import fr.baobab.planeteapp.model.Planete;
 
 public class MainActivity extends AppCompatActivity {
     public static final String TAG = "MainActivity";
+    public static final int PLANETE_CREATE_ACTIVITY = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,8 +87,10 @@ public class MainActivity extends AppCompatActivity {
         switch (itemId){
             case R.id.menu_create_planete:
                 //afficher le formulaire de création de planete
-                Log.i(TAG, "dans menu_create_planete");
-                //
+                //Log.i(TAG, "dans menu_create_planete");
+                //créer un Intent explicite
+                Intent intent = new Intent(this, PlaneteCreateActivity.class);
+                startActivityForResult(intent, PLANETE_CREATE_ACTIVITY);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
