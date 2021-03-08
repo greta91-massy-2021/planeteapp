@@ -1,6 +1,7 @@
 package fr.baobab.planeteapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -8,6 +9,7 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -48,9 +50,10 @@ public class MainActivity extends AppCompatActivity {
         /*ArrayAdapter<Planete> adapter =
                 new ArrayAdapter<>(this, R.layout.item, R.id.item_nom, list);*/
         RecyclerView rv = (RecyclerView)findViewById(R.id.list);
-        rv.setLayoutManager(new LinearLayoutManager(this));
+        //rv.setLayoutManager(new LinearLayoutManager(this));//gestionnaire de mise en forme
+        //rv.setLayoutManager(new GridLayoutManager(this, 2));//gestionnaire de mise en forme
+        rv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));//gestionnaire de mise en forme
         PlaneteAdapter adapter = new PlaneteAdapter(list);
         rv.setAdapter(adapter);
-
     }
 }
