@@ -1,6 +1,7 @@
 package fr.baobab.planeteapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -52,7 +53,13 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView rv = (RecyclerView)findViewById(R.id.list);
         //rv.setLayoutManager(new LinearLayoutManager(this));//gestionnaire de mise en forme
         //rv.setLayoutManager(new GridLayoutManager(this, 2));//gestionnaire de mise en forme
-        rv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));//gestionnaire de mise en forme
+        LinearLayoutManager llm = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        rv.setLayoutManager(llm);//gestionnaire de mise en forme
+        rv.setHasFixedSize(true);
+        //séparateur
+        DividerItemDecoration did = new DividerItemDecoration(rv.getContext(), llm.getOrientation());
+        rv.addItemDecoration(did);
+
         PlaneteAdapter adapter = new PlaneteAdapter(list);
         rv.setAdapter(adapter);
     }
