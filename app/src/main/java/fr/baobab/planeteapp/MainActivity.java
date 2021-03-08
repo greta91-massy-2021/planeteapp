@@ -9,7 +9,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -22,7 +24,7 @@ import fr.baobab.planeteapp.adapter.PlaneteAdapter;
 import fr.baobab.planeteapp.model.Planete;
 
 public class MainActivity extends AppCompatActivity {
-
+    public static final String TAG = "MainActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,12 +72,21 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.main_menu, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        return super.onOptionsItemSelected(item);
+        int itemId = item.getItemId();
+        switch (itemId){
+            case R.id.menu_create_planete:
+                //afficher le formulaire de création de planete
+                Log.i(TAG, "dans menu_create_planete");
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

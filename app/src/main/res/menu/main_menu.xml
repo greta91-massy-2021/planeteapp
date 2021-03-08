@@ -4,9 +4,14 @@
 
     <item
         android:id="@+id/app_bar_search"
-        android:icon="@drawable/ic_search_black_24dp"
+        android:icon="@android:drawable/ic_menu_search"
         android:title="Search"
-        app:actionViewClass="android.widget.SearchView" ></item>
-    <item android:title="Item" />
-    <item android:title="Item" />
+        app:actionViewClass="android.widget.SearchView"
+        app:showAsAction="always"></item>
+    <item
+        android:id="@+id/menu_create_planete"
+        android:title="@string/menu_create_planete_label"
+        android:icon="@android:drawable/ic_menu_add"
+        app:showAsAction="ifRoom"
+        />
 </menu>
