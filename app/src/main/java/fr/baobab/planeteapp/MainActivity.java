@@ -53,7 +53,8 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView rv = (RecyclerView)findViewById(R.id.list);
         //rv.setLayoutManager(new LinearLayoutManager(this));//gestionnaire de mise en forme
         //rv.setLayoutManager(new GridLayoutManager(this, 2));//gestionnaire de mise en forme
-        LinearLayoutManager llm = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager llm =
+                new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         rv.setLayoutManager(llm);//gestionnaire de mise en forme
         rv.setHasFixedSize(true);
         //séparateur

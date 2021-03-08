@@ -1,6 +1,7 @@
 package fr.baobab.planeteapp.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import fr.baobab.planeteapp.view.PlaneteView;
 
 public class PlaneteAdapter extends RecyclerView.Adapter<PlaneteView> {
     private List<Planete> list;
+    private int clickedPosition = RecyclerView.NO_POSITION;
     public PlaneteAdapter(@NonNull List<Planete> planetes) {
         super();
         list = planetes;
@@ -33,12 +35,37 @@ public class PlaneteAdapter extends RecyclerView.Adapter<PlaneteView> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PlaneteView holder, int position) {
+    public void onBindViewHolder(@NonNull PlaneteView holder, final int position) {
         holder.setItem(list.get(position));
+        //ajouter un écouteur d'évènement de type click
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setClickedPosition(position);
+            }
+        });
+        //holder.itemView.setOnClickListener((view)->setClickedPosition(position));//expression Lambda
+        /*int color = Color.TRANSPARENT;
+        if (getClickedPosition() == position){
+            color = Color.LTGRAY;
+        }
+        holder.itemView.setBackgroundColor(color);*/
+        holder.itemView.setBackgroundColor(getClickedPosition() == position ? Color.LTGRAY : Color.TRANSPARENT);
     }
 
     @Override
     public int getItemCount() {
         return list.size();
     }
+
+    public int getClickedPosition() {
+        return clickedPosition;
+    }
+
+    public void setClickedPosition(int clickedPosition) {
+        notifyItemChanged(clickedPosition);
+        this.clickedPosition = clickedPosition;
+        notifyItemChanged(clickedPosition);
+    }
+
 }
