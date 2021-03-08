@@ -1,6 +1,7 @@
 package fr.baobab.planeteapp;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -28,6 +29,7 @@ import fr.baobab.planeteapp.model.Planete;
 public class MainActivity extends AppCompatActivity {
     public static final String TAG = "MainActivity";
     public static final int PLANETE_CREATE_ACTIVITY = 1;
+    private PlaneteAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         DividerItemDecoration did = new DividerItemDecoration(rv.getContext(), llm.getOrientation());
         rv.addItemDecoration(did);
 
-        PlaneteAdapter adapter = new PlaneteAdapter(list);
+        adapter = new PlaneteAdapter(list);
         adapter.setMenuListener(this);
         rv.setAdapter(adapter);
     }
@@ -117,6 +119,19 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             default:
                 return super.onContextItemSelected(item);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PLANETE_CREATE_ACTIVITY && resultCode == RESULT_OK && null != data){
+            //récupérer les données envoyées par PlaneteCreateActivity
+            final String nomPlanete = data.getStringExtra("nomPlanete");
+            final int distancePlanete = data.getIntExtra("distancePlanete", 0);
+            Planete planete = new Planete(nomPlanete, distancePlanete, R.drawable.earth);
+            adapter.addPlanete(planete);
+
         }
     }
 }

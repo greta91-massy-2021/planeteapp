@@ -83,5 +83,8 @@ public class PlaneteAdapter extends RecyclerView.Adapter<PlaneteView> {
         this.menuListener = menuListener;
     }
 
-
+    public void addPlanete(Planete planete) {
+        list.add(planete);
+        notifyItemInserted(list.size()-1);
+    }
 }
