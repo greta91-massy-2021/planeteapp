@@ -47,6 +47,10 @@ public class PlaneteAdapter extends RecyclerView.Adapter<PlaneteView> {
             }
         });
         //holder.itemView.setOnClickListener((view)->setClickedPosition(position));//expression Lambda
+        holder.itemView.setOnLongClickListener((view)->{
+            setClickedPosition(position);
+            return false;
+        });
         /*int color = Color.TRANSPARENT;
         if (getClickedPosition() == position){
             color = Color.LTGRAY;
@@ -66,7 +70,7 @@ public class PlaneteAdapter extends RecyclerView.Adapter<PlaneteView> {
     }
 
     public void setClickedPosition(int clickedPosition) {
-        notifyItemChanged(clickedPosition);
+        notifyItemChanged(this.clickedPosition);
         this.clickedPosition = clickedPosition;
         notifyItemChanged(clickedPosition);
     }
