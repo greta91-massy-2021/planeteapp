@@ -40,6 +40,6 @@ public class PlaneteView extends RecyclerView.ViewHolder {
     public void setItem(final Planete planete) {
         this.tvName.setText(planete.getNom());
         this.tvDistance.setText(planete.getDistance()+"Gm");
-        this.ivImage.setImageResource(planete.getIdImage());
+        //this.ivImage.setImageResource(planete.getIdImage());
     }
 }

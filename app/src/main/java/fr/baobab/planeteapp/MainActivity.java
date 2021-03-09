@@ -94,10 +94,10 @@ public class MainActivity extends AppCompatActivity {
         planetes.enqueue(new Callback<List<Planete>>() {
             @Override
             public void onResponse(Call<List<Planete>> call, Response<List<Planete>> response) {
-                List<Planete> planetes = response.body();
-                Log.i(TAG, planetes.toString());
+                /*List<Planete> planetes = response.body();
+                //Log.i(TAG, planetes.toString());
                 adapter.setPlanetes(planetes);
-                adapter.notifyDataSetChanged();
+                adapter.notifyDataSetChanged();*/
             }
 
             @Override
