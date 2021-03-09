@@ -131,7 +131,6 @@ public class MainActivity extends AppCompatActivity {
             final int distancePlanete = data.getIntExtra("distancePlanete", 0);
             Planete planete = new Planete(nomPlanete, distancePlanete, R.drawable.earth);
             adapter.addPlanete(planete);
-
         }
     }
 }
