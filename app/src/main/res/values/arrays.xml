@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="noms">
+        <item>Mercure</item>
+        <item>Vénus</item>
+        <item>Terre</item>
+        <item>Mars</item>
+        <item>Jupiter</item>
+        <item>Saturne</item>
+        <item>Uranus</item>
+        <item>Neptune</item>
+        <item>Pluton</item>
+    </string-array>
+    <integer-array name="distances">
+        <item>58</item>
+        <item>108</item>
+        <item>150</item>
+        <item>228</item>
+        <item>778</item>
+        <item>1427</item>
+        <item>2870</item>
+        <item>4500</item>
+        <item>5950</item>
+    </integer-array>
+</resources>
