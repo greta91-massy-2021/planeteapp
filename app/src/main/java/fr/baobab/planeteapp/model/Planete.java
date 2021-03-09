@@ -3,6 +3,7 @@ package fr.baobab.planeteapp.model;
 import com.google.gson.annotations.SerializedName;
 
 public class Planete {
+    private long id;
     @SerializedName("name")
     private String nom;
     private int distance;
@@ -12,6 +13,14 @@ public class Planete {
         this.nom = nom;
         this.distance = distance;
         this.imageBase64 = imageBase64;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getNom() {
@@ -42,6 +51,4 @@ public class Planete {
     public String toString() {
         return getNom();
     }
-
-
 }

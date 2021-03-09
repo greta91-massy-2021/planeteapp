@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String TAG = "MainActivity";
     public static final int PLANETE_CREATE_ACTIVITY = 1;
     private PlaneteAdapter adapter;
+    private PlaneteService service;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,19 +86,22 @@ public class MainActivity extends AppCompatActivity {
 
         //récupérer les données depuis le backend
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://3797423d0ba8.ngrok.io/")
+                .baseUrl("https://5a9ed4f87d4d.ngrok.io/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        PlaneteService service = retrofit.create(PlaneteService.class);
+        service = retrofit.create(PlaneteService.class);
         Call<List<Planete>> planetes = service.getPlanetes();
         planetes.enqueue(new Callback<List<Planete>>() {
             @Override
             public void onResponse(Call<List<Planete>> call, Response<List<Planete>> response) {
-                /*List<Planete> planetes = response.body();
-                //Log.i(TAG, planetes.toString());
-                adapter.setPlanetes(planetes);
-                adapter.notifyDataSetChanged();*/
+                if (response.isSuccessful()){
+                    List<Planete> planetes = response.body();
+                    Log.i(TAG, planetes.toString());
+                    adapter.setPlanetes(planetes);
+                    adapter.notifyDataSetChanged();
+                }
+
             }
 
             @Override
@@ -155,13 +159,32 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        Log.i("TEST", "dans onActivityResult" );
         super.onActivityResult(requestCode, resultCode, data);
+
         if (requestCode == PLANETE_CREATE_ACTIVITY && resultCode == RESULT_OK && null != data){
             //récupérer les données envoyées par PlaneteCreateActivity
-            /*final String nomPlanete = data.getStringExtra("nomPlanete");
-            final int distancePlanete = data.getIntExtra("distancePlanete", 0);
-            Planete planete = new Planete(nomPlanete, distancePlanete, R.drawable.earth);
-            adapter.addPlanete(planete);*/
+            long planeteId = data.getLongExtra("planeteId", 0L);
+            Log.i("TEST", "planeteid " +  planeteId);
+            //récupérer la planète par id
+            Call<Planete> call = service.getPlaneteById(planeteId);
+            call.enqueue(new Callback<Planete>() {
+                @Override
+                public void onResponse(Call<Planete> call, Response<Planete> response) {
+                    Log.i("TEST", "onResponse " +  response.toString());
+
+                    if(response.isSuccessful()){
+                        Planete planete = response.body();
+                        adapter.addPlanete(planete);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Planete> call, Throwable t) {
+                    Log.i(TAG, t.toString());
+                }
+            });
+
         }
     }
 }

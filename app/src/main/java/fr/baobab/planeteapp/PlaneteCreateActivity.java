@@ -11,19 +11,30 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
 import android.text.Editable;
+import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileDescriptor;
 import java.io.FileNotFoundException;
 
-public class PlaneteCreateActivity extends AppCompatActivity {
+import fr.baobab.planeteapp.model.Planete;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
+public class PlaneteCreateActivity extends AppCompatActivity {
+    private Planete planete;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_planete_create);
+        planete = new Planete();
         //
         final View uploadBtn = findViewById(R.id.planete_upload_btn);
         uploadBtn.setOnClickListener((view)->{
@@ -60,13 +71,42 @@ public class PlaneteCreateActivity extends AppCompatActivity {
                 error = true;
             }
             if(error) return;
-            //récupérer l'objet Intent pour envoyer la réponse
+
+            planete.setNom(nomPlanete);
+            planete.setDistance(distancePlanete);
+
+            //envoyer la requete post vers le serveur /planetes
+            //créer l'objet de type Retrofit
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl("https://5a9ed4f87d4d.ngrok.io/")
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+            PlaneteService service = retrofit.create(PlaneteService.class);
+            Call<Planete> call = service.createPlanete(this.planete);
+            call.enqueue(new Callback<Planete>() {
+                @Override
+                public void onResponse(Call<Planete> call, Response<Planete> response) {
+                    if(response.isSuccessful()){
+                        Planete planete = response.body();
+                        Intent i = getIntent();
+                        i.putExtra("planeteId", planete.getId());
+                        setResult(RESULT_OK, i);
+                        finish();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Planete> call, Throwable t) {
+                    Log.i("planeteCreateActivity", t.toString());
+                }
+            });
+            /*//récupérer l'objet Intent pour envoyer la réponse
             Intent intent = getIntent();
             intent.putExtra("nomPlanete", nomPlanete);
             intent.putExtra("distancePlanete", distancePlanete);
             //envoyer la réponse vers MainActivity
             setResult(RESULT_OK, intent);
-            finish();
+            finish();*/
         });
     }
 
@@ -81,7 +121,13 @@ public class PlaneteCreateActivity extends AppCompatActivity {
                 Bitmap bitmap = BitmapFactory.decodeFileDescriptor(fileDescriptor);
                 ImageView ivImage = (ImageView)findViewById(R.id.planete_image);
                 ivImage.setImageBitmap(bitmap);
-
+                //convertir bitmap en byte tableau de byte
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+                byte[] bytes = baos.toByteArray();
+                //convertir tableau de byte en base64 string
+                String imageBase64 = Base64.encodeToString(bytes, Base64.DEFAULT);
+                planete.setImageBase64(imageBase64);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }

@@ -1,7 +1,10 @@
 package fr.baobab.planeteapp.view;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.AttributeSet;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +43,11 @@ public class PlaneteView extends RecyclerView.ViewHolder {
     public void setItem(final Planete planete) {
         this.tvName.setText(planete.getNom());
         this.tvDistance.setText(planete.getDistance()+"Gm");
+        if(planete.getImageBase64() != null){
+            byte[] decode = Base64.decode(planete.getImageBase64(), Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(decode, 0, decode.length);
+            this.ivImage.setImageBitmap(bitmap);
+        }
         //this.ivImage.setImageResource(planete.getIdImage());
     }
 }
