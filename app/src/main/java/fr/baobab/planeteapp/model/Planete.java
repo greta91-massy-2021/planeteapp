@@ -6,12 +6,12 @@ public class Planete {
     @SerializedName("name")
     private String nom;
     private int distance;
-    private int idImage;
+    private String imageBase64;
     public Planete(){}
-    public Planete(String nom, int distance, int idImage) {
+    public Planete(String nom, int distance, String imageBase64) {
         this.nom = nom;
         this.distance = distance;
-        this.idImage = idImage;
+        this.imageBase64 = imageBase64;
     }
 
     public String getNom() {
@@ -30,17 +30,18 @@ public class Planete {
         this.distance = distance;
     }
 
-
-    public int getIdImage() {
-        return idImage;
+    public String getImageBase64() {
+        return imageBase64;
     }
 
-    public void setIdImage(int idImage) {
-        this.idImage = idImage;
+    public void setImageBase64(String imageBase64) {
+        this.imageBase64 = imageBase64;
     }
 
     @Override
     public String toString() {
         return getNom();
     }
+
+
 }

@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<Planete>> call, Throwable t) {
-
+                Log.i(TAG, t.toString());
             }
         });
     }
@@ -158,10 +158,10 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PLANETE_CREATE_ACTIVITY && resultCode == RESULT_OK && null != data){
             //récupérer les données envoyées par PlaneteCreateActivity
-            final String nomPlanete = data.getStringExtra("nomPlanete");
+            /*final String nomPlanete = data.getStringExtra("nomPlanete");
             final int distancePlanete = data.getIntExtra("distancePlanete", 0);
             Planete planete = new Planete(nomPlanete, distancePlanete, R.drawable.earth);
-            adapter.addPlanete(planete);
+            adapter.addPlanete(planete);*/
         }
     }
 }

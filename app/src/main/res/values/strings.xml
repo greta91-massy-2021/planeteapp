@@ -5,5 +5,6 @@
     <string name="menu_edit_planete_label">Modifier</string>
     <string name="menu_delete_planete_label">Supprimer</string>
     <string name="planete_create_form_label">Créer une planète</string>
+    <string name="planete_upload_btn_label">Image</string>
 
 </resources>
