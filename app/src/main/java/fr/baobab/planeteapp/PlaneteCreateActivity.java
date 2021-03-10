@@ -78,7 +78,7 @@ public class PlaneteCreateActivity extends AppCompatActivity {
             //envoyer la requete post vers le serveur /planetes
             //créer l'objet de type Retrofit
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl("https://5a9ed4f87d4d.ngrok.io/")
+                    .baseUrl("https://7d079bddaee2.ngrok.io/")
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
             PlaneteService service = retrofit.create(PlaneteService.class);

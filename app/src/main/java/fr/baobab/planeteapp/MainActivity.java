@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
 
         //récupérer les données depuis le backend
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://5a9ed4f87d4d.ngrok.io/")
+                .baseUrl("https://7d079bddaee2.ngrok.io/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
