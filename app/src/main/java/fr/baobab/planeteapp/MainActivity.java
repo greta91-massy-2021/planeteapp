@@ -157,8 +157,8 @@ public class MainActivity extends AppCompatActivity {
                 Log.i(TAG, "dans menu_edit_planete");
                 Intent i = new Intent(this, PlaneteEditActivity.class);
                 i.putExtra("id", p.getId());
-                i.putExtra("name", p.getNom());
-                i.putExtra("distance", p.getDistance());
+                //i.putExtra("name", p.getNom());
+                //i.putExtra("distance", p.getDistance());
                 //i.putExtra("imageBase64", p.getImageBase64());
                 startActivityForResult(i, PLANETE_EDIT_ACTIVITY);
                 return false;
