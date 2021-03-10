@@ -36,6 +36,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MainActivity extends AppCompatActivity {
     public static final String TAG = "MainActivity";
     public static final int PLANETE_CREATE_ACTIVITY = 1;
+    public static final int PLANETE_EDIT_ACTIVITY = 2;
     private PlaneteAdapter adapter;
     private PlaneteService service;
     @Override
@@ -96,7 +97,8 @@ public class MainActivity extends AppCompatActivity {
         this.service = applicationContext.getService();
         //this.service = ((PlaneteApplication)getApplicationContext()).getService();
         Call<List<Planete>> planetes = this.service.getPlanetes();
-        planetes.enqueue(new Callback<List<Planete>>() {
+        planetes.enqueue(new GetPlanetesRetrofitCallback(this));
+        /*planetes.enqueue(new Callback<List<Planete>>() {
             @Override
             public void onResponse(Call<List<Planete>> call, Response<List<Planete>> response) {
                 if (response.isSuccessful()){
@@ -112,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
             public void onFailure(Call<List<Planete>> call, Throwable t) {
                 Log.i(TAG, t.toString());
             }
-        });
+        });*/
     }
 
     @Override
@@ -147,19 +149,28 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
         int itemId = item.getItemId();
+        int position = adapter.getClickedPosition();
+        Planete p = adapter.getItem(position);
         switch (itemId){
             case R.id.menu_edit_planete:
                 //afficher le formulaire de modification de planete
                 Log.i(TAG, "dans menu_edit_planete");
+                Intent i = new Intent(this, PlaneteEditActivity.class);
+                i.putExtra("id", p.getId());
+                i.putExtra("name", p.getNom());
+                i.putExtra("distance", p.getDistance());
+                //i.putExtra("imageBase64", p.getImageBase64());
+                startActivityForResult(i, PLANETE_EDIT_ACTIVITY);
                 return false;
             case R.id.menu_delete_planete:
                 //demander la confirmation avant de supprimer
                 Log.i(TAG, "dans menu_delete_planete");
                 //récupérer l'objet planète
-                int position = adapter.getClickedPosition();
-                Planete p = adapter.getItem(position);
+                //int position = adapter.getClickedPosition();
+                //Planete p = adapter.getItem(position);
                 Call<Planete> planeteCall = service.deletePlanete(p.getId());
-                planeteCall.enqueue(new Callback<Planete>() {
+                planeteCall.enqueue(new OtherRetrofitCallback(this));
+                /*planeteCall.enqueue(new Callback<Planete>() {
                     @Override
                     public void onResponse(Call<Planete> call, Response<Planete> response) {
                         if(response.isSuccessful()){
@@ -172,9 +183,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onFailure(Call<Planete> call, Throwable t) {
 
                     }
-                });
-
-
+                });*/
                 return false;
             default:
                 return super.onContextItemSelected(item);
@@ -192,6 +201,7 @@ public class MainActivity extends AppCompatActivity {
             Log.i("TEST", "planeteid " +  planeteId);
             //récupérer la planète par id
             Call<Planete> call = service.getPlaneteById(planeteId);
+            //call.enqueue(new OtherRetrofitCallback(this));
             call.enqueue(new Callback<Planete>() {
                 @Override
                 public void onResponse(Call<Planete> call, Response<Planete> response) {
@@ -210,5 +220,9 @@ public class MainActivity extends AppCompatActivity {
             });
 
         }
+    }
+
+    public PlaneteAdapter getAdapter() {
+        return adapter;
     }
 }

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="fr.baobab.planeteapp">
+
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:name=".PlaneteApplication"
         android:allowBackup="true"
@@ -11,10 +13,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".PlaneteEditActivity"></activity>
         <activity
-            android:label="@string/menu_create_planete_label"
+            android:name=".PlaneteCreateActivity"
             android:icon="@android:drawable/btn_plus"
-            android:name=".PlaneteCreateActivity"></activity>
+            android:label="@string/menu_create_planete_label" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

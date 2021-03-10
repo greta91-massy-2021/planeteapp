@@ -11,7 +11,7 @@ public class PlaneteApplication extends Application {
     public void onCreate() {
         super.onCreate();
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://7d079bddaee2.ngrok.io/")
+                .baseUrl("https://3b06db63004f.ngrok.io/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         service = retrofit.create(PlaneteService.class);
