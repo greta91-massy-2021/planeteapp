@@ -111,4 +111,16 @@ public class PlaneteAdapter extends RecyclerView.Adapter<PlaneteView> {
             }
         }
     }
+
+    public void editPlanete(Planete planete) {
+        for(Iterator<Planete> iterator = list.iterator(); iterator.hasNext();){
+            Planete p = iterator.next();
+            if(p.getId() == planete.getId()){
+                int position = list.indexOf(p);
+                list.set(position, planete);
+                notifyItemChanged(position);
+                break;
+            }
+        }
+    }
 }

@@ -220,6 +220,29 @@ public class MainActivity extends AppCompatActivity {
             });
 
         }
+        if(requestCode == PLANETE_EDIT_ACTIVITY && resultCode == RESULT_OK && null != data){
+            //récupérer les données envoyées par PlaneteEditActivity
+            long planeteId = data.getLongExtra("planeteId", 0L);
+            Log.i("TEST", "planeteid " +  planeteId);
+            //récupérer la planète par id
+            Call<Planete> call = service.getPlaneteById(planeteId);
+            call.enqueue(new Callback<Planete>() {
+                @Override
+                public void onResponse(Call<Planete> call, Response<Planete> response) {
+                    Log.i("TEST", "onResponse " +  response.toString());
+
+                    if(response.isSuccessful()){
+                        Planete planete = response.body();
+                        adapter.editPlanete(planete);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Planete> call, Throwable t) {
+
+                }
+            });
+        }
     }
 
     public PlaneteAdapter getAdapter() {

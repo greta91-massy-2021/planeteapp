@@ -8,6 +8,7 @@ import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface PlaneteService {
@@ -23,6 +24,6 @@ public interface PlaneteService {
     @DELETE("planetes/{id}")
     Call<Planete> deletePlanete(@Path("id") long id);
 
-
-
+    @PUT("planetes/{id}")
+    Call<Planete> editPlanete(@Path("id") long id, @Body Planete planete);
 }
