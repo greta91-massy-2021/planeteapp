@@ -2,6 +2,7 @@ package fr.baobab.planeteapp.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.Iterator;
 import java.util.List;
 
 import fr.baobab.planeteapp.R;
@@ -43,11 +45,13 @@ public class PlaneteAdapter extends RecyclerView.Adapter<PlaneteView> {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.i("planeteAdapter ", position+"");
                 setClickedPosition(position);
             }
         });
         //holder.itemView.setOnClickListener((view)->setClickedPosition(position));//expression Lambda
         holder.itemView.setOnLongClickListener((view)->{
+            Log.i("planeteAdapter ", position+"");
             setClickedPosition(position);
             return false;
         });
@@ -90,5 +94,21 @@ public class PlaneteAdapter extends RecyclerView.Adapter<PlaneteView> {
 
     public void setPlanetes(List<Planete> planetes) {
         list = planetes;
+    }
+
+    public Planete getItem(int position) {
+        return list.get(position);
+    }
+
+    public void deletePlanete(long id) {
+        for(Iterator<Planete> iterator = list.iterator(); iterator.hasNext();){
+            Planete p = iterator.next();
+            if(p.getId() == id){
+                int position = list.indexOf(p);
+                list.remove(p);
+                notifyItemRemoved(position);
+                break;
+            }
+        }
     }
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import fr.baobab.planeteapp.model.Planete;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -18,6 +19,9 @@ public interface PlaneteService {
 
     @POST("planetes")
     Call<Planete> createPlanete(@Body Planete planete);
+
+    @DELETE("planetes/{id}")
+    Call<Planete> deletePlanete(@Path("id") long id);
 
 
 

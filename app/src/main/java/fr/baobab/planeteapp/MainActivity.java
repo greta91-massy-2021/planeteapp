@@ -94,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
         service = retrofit.create(PlaneteService.class);*/
         PlaneteApplication applicationContext = (PlaneteApplication)getApplicationContext();
         this.service = applicationContext.getService();
+        //this.service = ((PlaneteApplication)getApplicationContext()).getService();
         Call<List<Planete>> planetes = this.service.getPlanetes();
         planetes.enqueue(new Callback<List<Planete>>() {
             @Override
@@ -154,6 +155,26 @@ public class MainActivity extends AppCompatActivity {
             case R.id.menu_delete_planete:
                 //demander la confirmation avant de supprimer
                 Log.i(TAG, "dans menu_delete_planete");
+                //récupérer l'objet planète
+                int position = adapter.getClickedPosition();
+                Planete p = adapter.getItem(position);
+                Call<Planete> planeteCall = service.deletePlanete(p.getId());
+                planeteCall.enqueue(new Callback<Planete>() {
+                    @Override
+                    public void onResponse(Call<Planete> call, Response<Planete> response) {
+                        if(response.isSuccessful()){
+                            Planete planete = response.body();
+                            adapter.deletePlanete(planete.getId());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Planete> call, Throwable t) {
+
+                    }
+                });
+
+
                 return false;
             default:
                 return super.onContextItemSelected(item);
