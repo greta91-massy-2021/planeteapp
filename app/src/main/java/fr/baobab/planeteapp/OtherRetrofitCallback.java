@@ -43,10 +43,6 @@ public class OtherRetrofitCallback implements Callback<Planete> {
                     break;
                 case "post":
                     //createPlanete
-                    //i = activity.getIntent();
-                    /*i.putExtra("PlaneteId", planete.getId());
-                    activity.setResult(activity.RESULT_OK, i);
-                    activity.finish();*/
                 case "put":
                     //editPlanete
                     i = activity.getIntent();

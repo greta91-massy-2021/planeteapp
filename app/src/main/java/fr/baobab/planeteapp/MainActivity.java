@@ -19,8 +19,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +46,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        RecyclerView rv = (RecyclerView)findViewById(R.id.list);
+        rv.setVisibility(View.GONE);
+        View tvEmpty = findViewById(android.R.id.empty);
+        tvEmpty.setVisibility(View.GONE);
         /*Resources resources = getResources();
         String[] nomsTab = resources.getStringArray(R.array.noms);
         int[] distancesTab = resources.getIntArray(R.array.distances);
@@ -71,7 +77,6 @@ public class MainActivity extends AppCompatActivity {
         /*ArrayAdapter<Planete> adapter =
                 new ArrayAdapter<>(this, R.layout.item, R.id.item_nom, list);*/
         ArrayList<Planete> list = new ArrayList<>();
-        RecyclerView rv = (RecyclerView)findViewById(R.id.list);
         //rv.setLayoutManager(new LinearLayoutManager(this));//gestionnaire de mise en forme
         //rv.setLayoutManager(new GridLayoutManager(this, 2));//gestionnaire de mise en forme
         LinearLayoutManager llm =
@@ -97,8 +102,8 @@ public class MainActivity extends AppCompatActivity {
         this.service = applicationContext.getService();
         //this.service = ((PlaneteApplication)getApplicationContext()).getService();
         Call<List<Planete>> planetes = this.service.getPlanetes();
-        planetes.enqueue(new GetPlanetesRetrofitCallback(this));
-        /*planetes.enqueue(new Callback<List<Planete>>() {
+        //planetes.enqueue(new GetPlanetesRetrofitCallback(this));
+        planetes.enqueue(new Callback<List<Planete>>() {
             @Override
             public void onResponse(Call<List<Planete>> call, Response<List<Planete>> response) {
                 if (response.isSuccessful()){
@@ -106,6 +111,14 @@ public class MainActivity extends AppCompatActivity {
                     Log.i(TAG, planetes.toString());
                     adapter.setPlanetes(planetes);
                     adapter.notifyDataSetChanged();
+
+                    findViewById(R.id.progressBar).setVisibility(View.GONE);
+                    rv.setVisibility(View.VISIBLE);
+
+                }
+                else if(response.code() == 404){
+                    findViewById(R.id.progressBar).setVisibility(View.GONE);
+                    tvEmpty.setVisibility(View.VISIBLE);
                 }
 
             }
@@ -113,8 +126,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<Planete>> call, Throwable t) {
                 Log.i(TAG, t.toString());
+                findViewById(R.id.progressBar).setVisibility(View.GONE);
+                ((TextView)tvEmpty).setText("Serveur HS");
+                tvEmpty.setVisibility(View.VISIBLE);
             }
-        });*/
+        });
     }
 
     @Override
@@ -168,6 +184,7 @@ public class MainActivity extends AppCompatActivity {
                 //récupérer l'objet planète
                 //int position = adapter.getClickedPosition();
                 //Planete p = adapter.getItem(position);
+                if (p == null) return false;
                 Call<Planete> planeteCall = service.deletePlanete(p.getId());
                 planeteCall.enqueue(new OtherRetrofitCallback(this));
                 /*planeteCall.enqueue(new Callback<Planete>() {

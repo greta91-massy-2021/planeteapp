@@ -26,4 +26,7 @@ public interface PlaneteService {
 
     @PUT("planetes/{id}")
     Call<Planete> editPlanete(@Path("id") long id, @Body Planete planete);
+
+    @GET("/planetes/image/{id}")
+    Call<String> getPlaneteImageById(@Path("id") long id);
 }

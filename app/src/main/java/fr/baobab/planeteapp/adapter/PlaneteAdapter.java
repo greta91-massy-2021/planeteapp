@@ -95,9 +95,14 @@ public class PlaneteAdapter extends RecyclerView.Adapter<PlaneteView> {
     public void setPlanetes(List<Planete> planetes) {
         list = planetes;
     }
-
+    public List<Planete> getPlanetes(){
+        return list;
+    }
     public Planete getItem(int position) {
-        return list.get(position);
+        if(position >= 0 && position < list.size()){
+            return list.get(position);
+        }
+        return null;
     }
 
     public void deletePlanete(long id) {
