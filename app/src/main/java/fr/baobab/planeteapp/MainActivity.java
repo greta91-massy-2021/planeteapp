@@ -201,8 +201,8 @@ public class MainActivity extends AppCompatActivity {
             Log.i("TEST", "planeteid " +  planeteId);
             //récupérer la planète par id
             Call<Planete> call = service.getPlaneteById(planeteId);
-            //call.enqueue(new OtherRetrofitCallback(this));
-            call.enqueue(new Callback<Planete>() {
+            call.enqueue(new OtherRetrofitCallback(this));
+            /*call.enqueue(new Callback<Planete>() {
                 @Override
                 public void onResponse(Call<Planete> call, Response<Planete> response) {
                     Log.i("TEST", "onResponse " +  response.toString());
@@ -217,7 +217,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onFailure(Call<Planete> call, Throwable t) {
                     Log.i(TAG, t.toString());
                 }
-            });
+            });*/
 
         }
         if(requestCode == PLANETE_EDIT_ACTIVITY && resultCode == RESULT_OK && null != data){
@@ -226,7 +226,8 @@ public class MainActivity extends AppCompatActivity {
             Log.i("TEST", "planeteid " +  planeteId);
             //récupérer la planète par id
             Call<Planete> call = service.getPlaneteById(planeteId);
-            call.enqueue(new Callback<Planete>() {
+            call.enqueue(new OtherRetrofitCallback(this));
+            /*call.enqueue(new Callback<Planete>() {
                 @Override
                 public void onResponse(Call<Planete> call, Response<Planete> response) {
                     Log.i("TEST", "onResponse " +  response.toString());
@@ -241,7 +242,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onFailure(Call<Planete> call, Throwable t) {
 
                 }
-            });
+            });*/
         }
     }
 

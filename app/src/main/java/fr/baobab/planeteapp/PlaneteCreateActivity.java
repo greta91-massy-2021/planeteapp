@@ -88,7 +88,8 @@ public class PlaneteCreateActivity extends AppCompatActivity {
             //PlaneteService service =
             //              ((PlaneteApplication) getApplicationContext()).getService();
             Call<Planete> call = service.createPlanete(this.planete);
-            call.enqueue(new Callback<Planete>() {
+            call.enqueue(new OtherRetrofitCallback(this));
+            /*call.enqueue(new Callback<Planete>() {
                 @Override
                 public void onResponse(Call<Planete> call, Response<Planete> response) {
                     if(response.isSuccessful()){
@@ -104,7 +105,7 @@ public class PlaneteCreateActivity extends AppCompatActivity {
                 public void onFailure(Call<Planete> call, Throwable t) {
                     Log.i("planeteCreateActivity", t.toString());
                 }
-            });
+            });*/
             /*//récupérer l'objet Intent pour envoyer la réponse
             Intent intent = getIntent();
             intent.putExtra("nomPlanete", nomPlanete);
