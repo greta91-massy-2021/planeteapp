@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -85,13 +86,15 @@ public class MainActivity extends AppCompatActivity {
         rv.setAdapter(adapter);
 
         //récupérer les données depuis le backend
-        Retrofit retrofit = new Retrofit.Builder()
+        /*Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://7d079bddaee2.ngrok.io/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        service = retrofit.create(PlaneteService.class);
-        Call<List<Planete>> planetes = service.getPlanetes();
+        service = retrofit.create(PlaneteService.class);*/
+        PlaneteApplication applicationContext = (PlaneteApplication)getApplicationContext();
+        this.service = applicationContext.getService();
+        Call<List<Planete>> planetes = this.service.getPlanetes();
         planetes.enqueue(new Callback<List<Planete>>() {
             @Override
             public void onResponse(Call<List<Planete>> call, Response<List<Planete>> response) {
